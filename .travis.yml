@@ -18,4 +18,5 @@ install:
   - go get github.com/northbright/pathhelper
 
 script:
-  - CGO_CFLAGS="-I/usr/local/libxls/include" CGO_LDFLAGS="-L/usr/local/libxls/lib -lxlsreader" go test -c ./xls2csv -o ./xls2csv/xls2csv.test && ./xls2csv/xls2csv.test
+  - cd xls2csv
+  - CGO_CFLAGS="-I/usr/local/libxls/include" CGO_LDFLAGS="-L/usr/local/libxls/lib -lxlsreader" go test -c && ./xls2csv.test
