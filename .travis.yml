@@ -1,0 +1,20 @@
+sudo: required
+
+language: go
+
+go:
+  - 1.3.3
+  - 1.4.2
+  - 1.5
+  - 1.6
+  - 1.7
+  - 1.8
+  - tip
+
+before_install:
+
+install:
+
+script:
+  - ./build.sh
+  - ./go test -c && ./xls2csv.test
