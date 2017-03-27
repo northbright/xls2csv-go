@@ -8,12 +8,16 @@ import (
 	"github.com/northbright/xls2csv-go/xls2csv"
 )
 
+// Run "go test -c && ./xls2csv.test" to test.
 func ExampleXLS2CSV() {
 	const xlsFile string = "./files/my.xls"
 	var err error
 	records := [][]string{}
 
+	// Get absolute path of XLS file.
 	f, _ := pathhelper.GetAbsPath(xlsFile)
+
+	// Call XLS2CSV() to convert XLS and get all records.
 	if records, err = xls2csv.XLS2CSV(f, 0); err != nil {
 		log.Printf("XLS2CSV() error: %v\n", err)
 		goto end
