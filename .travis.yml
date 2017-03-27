@@ -12,9 +12,10 @@ go:
   - tip
 
 before_install:
+  - ./install-libxls.sh
 
 install:
+  - go get github.com/northbright/pathhelper
 
 script:
-  - ./build.sh
-  - ./go test -c && ./xls2csv.test
+  - CGO_CFLAGS="-I/usr/local/libxls/include" CGO_LDFLAGS="-L/usr/local/libxls/lib -lxlsreader" go test -c && ./xls2csv.test
