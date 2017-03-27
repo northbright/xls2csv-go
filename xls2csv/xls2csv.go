@@ -1,8 +1,6 @@
 package xls2csv
 
 /*
-#cgo CFLAGS: -I/usr/local/libxls/include
-#cgo LDFLAGS: -L/usr/local/libxls/lib -lxlsreader
 #include <stdio.h>
 #include <stdlib.h>
 #include <libxls/xls.h>
