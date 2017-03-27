@@ -19,4 +19,4 @@ install:
 
 script:
   - cd xls2csv
-  - CGO_CFLAGS="-I/usr/local/libxls/include" CGO_LDFLAGS="-L/usr/local/libxls/lib -lxlsreader" go test -c && ./xls2csv.test
+  - LD_LIBRARY_PATH="/usr/local/libxls/lib/" CGO_CFLAGS="-I/usr/local/libxls/include" CGO_LDFLAGS="-L/usr/local/libxls/lib -lxlsreader" go test -c && ./xls2csv.test
