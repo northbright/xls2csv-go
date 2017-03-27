@@ -17,6 +17,13 @@ import (
 	"unsafe"
 )
 
+// XLS2CSV converts XLS file to CSV records.
+//     Params:
+//       xlsFile: XLS file name.
+//       sheetId: sheet ID to be converted. It's 0-based.
+//     Return:
+//       records: CSV records. Each record is a slice of fields.
+//                See https://godoc.org/encoding/csv#Reader.ReadAll for more info.
 func XLS2CSV(xlsFile string, sheetId int) (records [][]string, err error) {
 	var buf *C.char = nil
 	var r *csv.Reader = nil
