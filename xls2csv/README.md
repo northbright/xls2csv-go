@@ -22,3 +22,8 @@ package xls2csv converts XLS file to CSV records. It's [Golang](https://golang.o
 
           CGO_CFLAGS="-I/path/to/include" CGO_LDFLAGS="-L/path/to/lib -lxlsreader" go get github.com/northbright/xls2csv-go
 
+#### Documentation
+* [API References](https://godoc.org/github.com/northbright/xls2csv-go/xls2csv)
+
+#### License
+* [MIT License](LICENSE)
