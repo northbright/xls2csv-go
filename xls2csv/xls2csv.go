@@ -23,8 +23,8 @@ import (
 //       records: CSV records. Each record is a slice of fields.
 //                See https://godoc.org/encoding/csv#Reader.ReadAll for more info.
 func XLS2CSV(xlsFile string, sheetId int) (records [][]string, err error) {
-	var buf *C.char = nil
-	var r *csv.Reader = nil
+	var buf *C.char
+	var r *csv.Reader
 
 	f := C.CString(xlsFile)
 	// C string should be free after use.
