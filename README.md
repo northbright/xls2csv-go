@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/northbright/xls2csv-go.svg?branch=master)](https://travis-ci.org/northbright/xls2csv-go)
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/northbright/xls2csv-go)](https://goreportcard.com/report/github.com/northbright/xls2csv-go)
+
 Package xls2csv is a [Golang](https://golang.org) package which converts XLS file to CSV records. It's based on [libxls](http://libxls.sourceforge.net/) and [xls2csv](https://github.com/northbright/xls2csv).
 
 #### Install `xls2csv` package
