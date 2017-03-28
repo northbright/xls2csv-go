@@ -42,6 +42,11 @@ package xls2csv converts XLS file to CSV records. It's based on [libxls](http://
         fmt.Printf("records: %v\n", records)
     }
 
+#### Add Path of `libxlsreader.so` to `LD_LIBRARY_PATH` Before Run Your Golang App or `go test`
+
+        export LD_LIBRARY_PATH="/usr/local/libxls/lib":$LD_LIBRARY_PATH
+        go test -c && ./xls2csv.test
+
 #### Documentation
 * [API References](https://godoc.org/github.com/northbright/xls2csv-go/xls2csv)
 
