@@ -16,6 +16,32 @@ package xls2csv converts XLS file to CSV records. It's based on [libxls](http://
 
         CGO_CFLAGS=-I/usr/local/libxls/include CGO_LDFLAGS="-L/usr/local/libxls/lib -l xlsreader" go get github.com/northbright/xls2csv-go/xls2csv
 
+#### Usage
+
+    package main
+
+    import (
+        "fmt"
+
+        "github.com/northbright/xls2csv-go/xls2csv"
+    )
+
+    func main() {
+        var err error
+
+        f := "/home/xx/my.xls"
+        sheetId := 0
+        records := [][]string{}
+
+        // Call XLS2CSV() to convert XLS and get all records.
+        if records, err = xls2csv.XLS2CSV(f, sheetId); err != nil {
+            fmt.Printf("err: %v\n", err)
+            return
+        }
+
+        fmt.Printf("records: %v\n", records)
+    }
+
 #### Documentation
 * [API References](https://godoc.org/github.com/northbright/xls2csv-go/xls2csv)
 
