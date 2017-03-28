@@ -24,5 +24,5 @@ before_script:
   - export LD_LIBRARY_PATH="$HOME/lib":$LD_LIBRARY_PATH
 
 script:
-  - cd xls2csv
+  - cd ../xls2csv
   - CGO_CFLAGS="-I$HOME/include" CGO_LDFLAGS="-L$HOME/lib -lxlsreader" go test -c && ./xls2csv.test
