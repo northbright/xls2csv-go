@@ -1,6 +1,6 @@
 # xls2csv-go
 
-package xls2csv converts XLS file to CSV records. It's based on [libxls](http://libxls.sourceforge.net/) and [xls2csv](https://github.com/northbright/xls2csv).
+Package xls2csv converts XLS file to CSV records. It's based on [libxls](http://libxls.sourceforge.net/) and [xls2csv](https://github.com/northbright/xls2csv).
 
 #### Install `xls2csv` package
 * xls2csv requires [libxls](http://libxls.sourceforge.net/) to be installed.
