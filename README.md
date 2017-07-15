@@ -9,12 +9,27 @@ Package xls2csv is a [Golang](https://golang.org) package which converts XLS fil
 #### Install `xls2csv` package
 * xls2csv requires [libxls](http://libxls.sourceforge.net/) to be installed.
 
-        wget http://downloads.sourceforge.net/libxls/libxls-0.2.0.tar.gz
-        tar -xzvf libxls-0.2.0.tar.gz
-        cd libxls-0.2.0
-        ./configure
-        make
-        sudo make install 
+  * Install libxls
+
+          wget http://downloads.sourceforge.net/libxls/libxls-0.2.0.tar.gz
+          tar -xzvf libxls-0.2.0.tar.gz
+          cd libxls-0.2.0
+          ./configure
+          make
+          sudo make install
+  * Add libxls lib path to `LD_LIBRARY_PATH`
+    * Create a new `/etc/ld.so.conf.d/libxls.conf`
+
+              sudo vi /etc/ld.so.conf.d/libxls.conf
+
+              // Add path of libxls to this file
+              /usr/local/libxls/lib
+
+    * Update `LD_LIBRARY_PATH`
+
+            sudo ldconfig
+            // Check libxlsreader.so
+            sudo ldconfig -p | grep libxls
 
 * Install `xls2csv` package
 
