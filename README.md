@@ -61,10 +61,10 @@ Package xls2csv is a [Golang](https://golang.org) package which converts XLS fil
         fmt.Printf("records: %v\n", records)
     }
 
-#### Add Path of `libxlsreader.so` to `LD_LIBRARY_PATH` Before Run Your Golang App or `go test`
+#### Build and Test Your App
+  * Do not forget to add `CGO_CFLAGS=-I/usr/local/libxls/include CGO_LDFLAGS="-L/usr/local/libxls/lib -l xlsreader"` before `go build` or `go test`
 
-        export LD_LIBRARY_PATH="/usr/local/libxls/lib":$LD_LIBRARY_PATH
-        go test -c && ./xls2csv.test
+          CGO_CFLAGS=-I/usr/local/libxls/include CGO_LDFLAGS="-L/usr/local/libxls/lib -l xlsreader" go build
 
 #### Documentation
 * [API References](https://godoc.org/github.com/northbright/xls2csv-go/xls2csv)
