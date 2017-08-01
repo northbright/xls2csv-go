@@ -18,11 +18,11 @@ import (
 // XLS2CSV converts XLS file to CSV records.
 //     Params:
 //       xlsFile: XLS file name.
-//       sheetId: sheet ID to be converted. It's 0-based.
+//       sheetID: sheet ID to be converted. It's 0-based.
 //     Return:
 //       records: CSV records. Each record is a slice of fields.
 //                See https://godoc.org/encoding/csv#Reader.ReadAll for more info.
-func XLS2CSV(xlsFile string, sheetId int) (records [][]string, err error) {
+func XLS2CSV(xlsFile string, sheetID int) (records [][]string, err error) {
 	var buf *C.char
 	var r *csv.Reader
 
@@ -30,13 +30,13 @@ func XLS2CSV(xlsFile string, sheetId int) (records [][]string, err error) {
 	// C string should be free after use.
 	defer C.free(unsafe.Pointer(f))
 
-	id := C.int(sheetId)
+	id := C.int(sheetID)
 
 	// xls2csv() will return a buffer(char *) contains CSV string.
 	// The buffer should be free in C.
 	buf = C.xls2csv(f, id)
 	if buf == nil {
-		err = fmt.Errorf("xls2csv() error.")
+		err = fmt.Errorf("xls2csv() error")
 		goto end
 	}
 
