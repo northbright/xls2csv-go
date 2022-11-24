@@ -4,19 +4,22 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/northbright/xls2csv-go)](https://goreportcard.com/report/github.com/northbright/xls2csv-go)
 [![GoDoc](https://godoc.org/github.com/northbright/xls2csv-go/xls2csv?status.svg)](https://godoc.org/github.com/northbright/xls2csv-go/xls2csv)
 
-Package xls2csv is a [Golang](https://golang.org) package which converts XLS file to CSV records. It's based on [libxls](http://libxls.sourceforge.net/) and [xls2csv](https://github.com/northbright/xls2csv).
+Package xls2csv is a [Golang](https://golang.org) package which converts XLS file to CSV records. It's based on [libxls](https://github.com/libxls/libxls/) and [xls2csv](https://github.com/northbright/xls2csv).
 
 #### Install `xls2csv` package
-* xls2csv requires [libxls](http://libxls.sourceforge.net/) to be installed.
+* xls2csv requires [libxls](https://github.com/libxls/libxls/) to be installed.
 
   * Install libxls
 
-          wget http://downloads.sourceforge.net/libxls/libxls-0.2.0.tar.gz
-          tar -xzvf libxls-0.2.0.tar.gz
-          cd libxls-0.2.0
-          ./configure
-          make
-          sudo make install
+    ```
+    wget https://github.com/libxls/libxls/releases/download/v1.6.2/libxls-1.6.2.tar.gz
+    tar -xzvf libxls-1.6.2.tar.gz
+    cd libxls-1.6.2
+    ./configure
+    make
+    sudo make install
+    ```
+
   * Add libxls lib path to `LD_LIBRARY_PATH`
     * Create a new `/etc/ld.so.conf.d/libxls.conf`
 
