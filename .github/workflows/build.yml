@@ -28,7 +28,7 @@ jobs:
         go-version: ${{ matrix.go }}
 
     - name: Download libiconv
-      run: https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.18.tar.gz
+      run: wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.18.tar.gz
 
     - name: Compile and install libiconv
       run: tar -xzvf libiconv-1.18.tar.gz && cd libiconv-1.18 && ./configure && make && make install && cd ..
