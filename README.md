@@ -20,13 +20,6 @@ Package xls2csv is a [Golang](https://golang.org) package which converts XLS fil
       sudo make install
       ```
 
-      Add lib path(linux)
-
-      ```sh
-      echo "/usr/local/lib" | sudo tee /etc/ld.so.conf.d/usrlocallib.conf
-      sudo ldconfig
-      ```
-
   * Install [libxls](https://github.com/libxls/libxls/)
 
     ```sh
@@ -36,6 +29,13 @@ Package xls2csv is a [Golang](https://golang.org) package which converts XLS fil
     ./configure
     make
     sudo make install
+    ```
+
+  * Add lib path(linux)
+
+    ```sh
+    echo "/usr/local/lib" | sudo tee /etc/ld.so.conf.d/usrlocallib.conf
+    sudo ldconfig
     ```
 
 * Install `xls2csv` package
