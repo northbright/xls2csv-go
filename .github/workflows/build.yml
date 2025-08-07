@@ -14,6 +14,8 @@ jobs:
         go:
         - "1.24"
       fail-fast: false
+    permissions:
+      contents: write
     steps:
     - name: Checkout source codes
       uses: actions/checkout@v4
@@ -27,22 +29,41 @@ jobs:
       run: wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.18.tar.gz
 
     - name: Compile and install libiconv
-      run: tar -xzvf libiconv-1.18.tar.gz && cd libiconv-1.18 && ./configure && make && sudo RUNNER_ALLOW_RUNASROOT=true make install && cd ..
+      run: |
+        tar -xzvf libiconv-1.18.tar.gz
+        cd libiconv-1.18
+        ./configure
+        make
+        sudo RUNNER_ALLOW_RUNASROOT=true make install
+        cd ..
 
     - name: Download libxls
       run: wget https://github.com/libxls/libxls/releases/download/v1.6.3/libxls-1.6.3.tar.gz
 
     - name: Compile and install libxls
-      run: tar -xzvf libxls-1.6.3.tar.gz && cd libxls-1.6.3 && ./configure && make && sudo RUNNER_ALLOW_RUNASROOT=true make install && cd ..
+      run: |
+        tar -xzvf libxls-1.6.3.tar.gz
+        cd libxls-1.6.3
+        ./configure
+        make
+        sudo RUNNER_ALLOW_RUNASROOT=true make install
+        cd ..
 
     - name: Add /usr/local/lib to shared lib search path
-      run: sudo RUNNER_ALLOW_RUNASROOT=true echo "/usr/local/lib" > /etc/ld.so.conf.d/usrlocallib.conf && sudo RUNNER_ALLOW_RUNASROOT=true ldconfig
+      run: |
+        echo "/usr/local/lib" | sudo RUNNER_ALLOW_RUNASROOT=true tee /etc/ld.so.conf.d/usrlocallib.conf
+        sudo RUNNER_ALLOW_RUNASROOT=true ldconfig
 
     - name: Build
-      run: cd xls2csv && CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go build -v && cd ..
+      run: |
+        cd xls2csv
+        CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go build -v
+        cd ..
 
     - name: Test
-      run: cd xls2csv && CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go test -v ./... && cd ..
+      run: cd xls2csv
+        CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go test -v ./...
+        cd ..
 
   macos:
     name: Build on macOS
@@ -65,16 +86,34 @@ jobs:
       run: wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.18.tar.gz
 
     - name: Compile and install libiconv
-      run: tar -xzvf libiconv-1.18.tar.gz && cd libiconv-1.18 && ./configure && make && sudo RUNNER_ALLOW_RUNASROOT=true make install && cd ..
+      run: |
+        tar -xzvf libiconv-1.18.tar.gz
+        cd libiconv-1.18
+        ./configure
+        make
+        sudo RUNNER_ALLOW_RUNASROOT=true make install
+        cd ..
 
     - name: Download libxls
       run: wget https://github.com/libxls/libxls/releases/download/v1.6.3/libxls-1.6.3.tar.gz
 
     - name: Compile and install libxls
-      run: tar -xzvf libxls-1.6.3.tar.gz && cd libxls-1.6.3 && ./configure && make && sudo RUNNER_ALLOW_RUNASROOT=true make install && cd ..
+      run: |
+        tar -xzvf libxls-1.6.3.tar.gz
+        cd libxls-1.6.3
+        ./configure
+        make
+        sudo RUNNER_ALLOW_RUNASROOT=true make install
+        cd ..
 
     - name: Build
-      run: cd xls2csv && CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go build -v && cd ..
+      run: |
+        cd xls2csv
+        CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go build -v
+        cd ..
 
     - name: Test
-      run: cd xls2csv && CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go test -v ./... && cd ..
+      run: |
+        cd xls2csv
+        CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go test -v ./...
+        cd ..
