@@ -61,7 +61,8 @@ jobs:
         cd ..
 
     - name: Test
-      run: cd xls2csv
+      run: |
+        cd xls2csv
         CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go test -v ./...
         cd ..
 
