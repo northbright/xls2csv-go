@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <malloc.h>
+#if defined(__APPLE__)
+    #include <stdlib.h>
+#else
+    #include <malloc.h>
+#endif
 #include <stdarg.h>
 
 #include "appendstr.h"

@@ -1,0 +1,46 @@
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+
+name: Build
+
+on:
+- push
+
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+        - macos-latest
+        - ubuntu-latest
+        go:
+        - "1.24"
+
+      fail-fast: false
+    steps:
+    - name: Checkout source codes
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ matrix.go }}
+
+    - name: Download libiconv
+      run: https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.18.tar.gz
+
+    - name: Compile and install libiconv
+      run: tar -xzvf libiconv-1.18.tar.gz && cd libiconv-1.18 && ./configure && make && make install && cd ..
+
+    - name: Download libxls
+      run: wget https://github.com/libxls/libxls/releases/download/v1.6.3/libxls-1.6.3.tar.gz
+
+    - name: Compile and install libxls
+      run: tar -xzvf libxls-1.6.3.tar.gz && cd libxls-1.6.3 && ./configure && make && make install && cd ..
+
+    - name: Build
+      run: cd xls2csv && CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go build -v && cd ..
+
+    - name: Test
+      run: cd xls2csv && CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go test -v ./... && cd ..
