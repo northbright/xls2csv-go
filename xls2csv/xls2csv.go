@@ -43,7 +43,16 @@ func XLS2CSV(xlsFile string, sheetID int) (records [][]string, err error) {
 	// Free memory block after use.
 	defer C.free(unsafe.Pointer(buf))
 
+	// Create a new CSV reader.
 	r = csv.NewReader(strings.NewReader(C.GoString(buf)))
+
+	// Use ',' as separator.
+	r.Comma = ','
+
+	// Do not check if records have the same fields count.
+	r.FieldsPerRecord = -1
+
+	// Read CSV records.
 	records, err = r.ReadAll()
 
 end:
