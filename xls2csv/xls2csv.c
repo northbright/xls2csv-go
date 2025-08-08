@@ -12,6 +12,9 @@
 #include <xls.h>
 #include "appendstr.h"
 
+static char *lineSeparator = "\n";
+static char *fieldSeparator = ",";
+
 // xls2csv reads XLS files and convert XLS data to CSV string.
 //     Params:
 //       pstrXLSFile: file name of XLS.
@@ -55,34 +58,60 @@ char *xls2csv(char *pstrXLSFile, int nSheetId) {
     pWS = xls_getWorkSheet(pWB, nSheetId);
     xls_parseWorkSheet(pWS);
 
-    // Process all rows of the sheet.
-    for (i = 0; i <= pWS->rows.lastrow; i++) {
-        row = &(pWS->rows.row[i]);
-
-        // Process cells
+    // process all rows of the sheet
+    for (i = 0; i <= (unsigned int)pWS->rows.lastrow; i++) {
         for (j = 0; j <= pWS->rows.lastcol; j++) {
-            // Display the value of the cell (either numeric or string)
-            if (row->cells.cell[j].id == 0x27e || row->cells.cell[j].id==0x0BD || row->cells.cell[j].id==0x203) {
-                buf = appendStr(buf, "%.15g", row->cells.cell[j].d);
-            } else if (row->cells.cell[j].str != NULL) {
-                buf = appendStr(buf, row->cells.cell[j].str);
-            } else {
-                // Skip if cell value is not number or string.
+            xlsCell *cell = xls_cell(pWS, i, j);
+
+            if ((!cell) || (cell->isHidden)) {
                 continue;
             }
 
+            // display the value of the cell (either numeric or string)
+            if (cell->id == XLS_RECORD_RK || cell->id == XLS_RECORD_MULRK || cell->id == XLS_RECORD_NUMBER) {
+                buf = appendStr(buf, "%.15g", cell->d);
+            } else if (cell->id == XLS_RECORD_FORMULA || cell->id == XLS_RECORD_FORMULA_ALT) {
+                // formula
+                if (cell->l == 0) // its a number
+                {
+                    buf = appendStr(buf, "%.15g", cell->d);
+                } else if (cell->str) {
+                    if (!strcmp((char *)cell->str, "bool")) // its boolean, and test cell->d
+                    {
+                        buf = appendStr(buf, (int) cell->d ? "true" : "false");
+                    } else if (!strcmp((char *)cell->str, "error")) // formula is in error
+                    {
+                        buf = appendStr(buf, "*error*");
+                    } else // ... cell->str is valid as the result of a string formula.
+                    {
+                        buf = appendStr(buf, (char *)cell->str);
+                    }
+                }
+            } else if (cell->str) {
+                buf = appendStr(buf, (char *)cell->str);
+                printf("%s", (char *)cell->str);
+            } else {
+                buf = appendStr(buf, "");
+            }
+
+            // Write field separator.
             if (j != pWS->rows.lastcol) {
-                buf = appendStr(buf, ",");
+                buf = appendStr(buf, fieldSeparator);
             }
         }
 
-        // Write line break.
+        // Write link separator(breaker).
         if (i != pWS->rows.lastrow) {
-            buf = appendStr(buf, "\n");
+            buf = appendStr(buf, lineSeparator);
         }
-    } 
+    }
 
 end:
+    if (pWS != NULL) {
+        xls_close_WS(pWS);
+        pWS = NULL;
+    }
+
     if (pWB != NULL) {
         xls_close(pWB);
         pWB = NULL;
