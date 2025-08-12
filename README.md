@@ -38,12 +38,6 @@ Package xls2csv is a [Golang](https://golang.org) package which converts XLS fil
     sudo ldconfig
     ```
 
-* Install `xls2csv` package
-
-  ```sh
-  CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go get github.com/northbright/xls2csv-go/xls2csv
-  ```
-
 #### Usage
 
 ```go
@@ -73,13 +67,24 @@ func main() {
 ```
 
 #### Build and Test Your App
-```sh
-CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go build
-```
 
-```sh
-CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go test
-```
+* Install `xls2csv` package by running `go mod tidy`
+
+  ```
+  go mod tidy
+  ```
+
+* Build
+
+  ```sh
+  CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go build
+  ```
+
+* Test
+
+  ```sh
+  CGO_CFLAGS=-I/usr/local/include CGO_LDFLAGS="-L/usr/local/lib -l xlsreader" go test
+  ```
 
 #### Limitation
 * UTF-8 encoded XLS files only
